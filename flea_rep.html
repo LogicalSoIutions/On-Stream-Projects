@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amount Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #2c2c2c;
+    color: #fff;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 500px;
+    width: 100%;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  input, button {
+    padding: 10px;
+    margin: 5px 0;
+    display: block;
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+  }
+  button {
+    background-color: #5e42a6;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #774fb8;
+  }
+  input {
+    background-color: #404040;
+    color: #fff;
+    border: 1px solid #5e42a6;
+  }
+  #result {
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Calculate Your Amount</h2>
+  <label for="rep">Enter Rep:</label>
+  <input type="text" id="rep" placeholder="Enter rep here..." oninput="formatInput(this)">
+  <button onclick="calculateAmount()">Calculate Amount</button>
+  <div id="result"></div>
+</div>
+
+<script>
+  function formatInput(input) {
+    input.value = input.value.replace(/[^0-9.]/g, '');
+  }
+
+  function calculateAmount() {
+    var repStr = document.getElementById("rep").value;
+    var rep = parseFloat(repStr);
+    if (!isNaN(rep) && rep >= 0) {
+      var amount = rep / 0.01 * 50000;
+      document.getElementById("result").innerHTML = "Your Amount: " + formatNumber(amount);
+    } else {
+      document.getElementById("result").innerHTML = "Please enter a valid rep.";
+    }
+  }
+
+  function formatNumber(number) {
+    return number.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+</script>
+</body>
+</html>
